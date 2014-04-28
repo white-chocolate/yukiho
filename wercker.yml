@@ -15,6 +15,9 @@ build:
         code: |
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
+  after-steps:
+    - 1syo/idobata-notify@0.1.1:
+      token: IDOBATA_TOKEN
 deploy:
   steps:
     - heroku-deploy
