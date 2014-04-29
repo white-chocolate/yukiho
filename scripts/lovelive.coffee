@@ -26,7 +26,6 @@ module.exports = (robot) ->
     onTick: ->
       d = new Date
       getNextLovelive robot, d, (item) ->
-        console.log(item.date, getDateStr(d))
         if item? && item.date == getDateStr(d)
           send robot, "#{item.title}#{item.next}は今日の#{item.time}からだよっ。もう録画予約した？"
 
