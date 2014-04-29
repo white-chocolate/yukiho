@@ -26,10 +26,12 @@ module.exports = (robot) ->
     onTick: ->
       d = new Date
       getNextLovelive robot, d, (item) ->
+        # console.log(d, item)
         if item? && item.date == getDateStr(d)
           send robot, "#{item.title}#{item.next}は今日の#{item.time}からだよっ。もう録画予約した？"
 
 send = (robot, text) ->
+  # send to first room in data
   users = robot.brain.data.users
   return if users.length == 0
   room = users[Object.keys(users)[0]].room
@@ -39,8 +41,9 @@ getNextLovelive = (robot, d, cb) ->
   animeMap robot, "ラブライブ", (item) ->
     if item?
       if getDayStr(d) != item.week || getTimeStr(d) >= item.time
+        # create new instance
         d = new Date(d.getTime() + (7 - d.getDay()) * 86400 * 1000)
-      item.date = getDateStr(d)
+      item.date = getDateStr d
       cb item
     else
       cb undefined
@@ -48,7 +51,7 @@ getNextLovelive = (robot, d, cb) ->
 animeMap = (robot, query, cb) ->
   robot.http('http://animemap.net/api/table/tokyo.json')
     .get() (err, res, body) ->
-      res = JSON.parse(body)
+      res = JSON.parse body
       res = res.response?.item
       if res?.length > 0
         for item in res
@@ -63,7 +66,7 @@ getDayStr = (d) ->
 
 getDateStr = (d) ->
   month = ("0" + (d.getMonth() + 1).toString()).slice(-2)
-  date = ("0" + d.getMonth().toString()).slice(-2)
+  date = ("0" + d.getDate().toString()).slice(-2)
   "#{month}/#{date}"
 
 getTimeStr = (d) ->
