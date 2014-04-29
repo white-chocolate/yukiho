@@ -6,31 +6,33 @@
 #   素数 - Yukiho speaks about prime numbers
 
 module.exports = (robot) ->
-  robot.hear /-?\d{1,7}/i, (msg) ->
+  robot.hear /-?\d{1,7}/g, (msg) ->
     #msg.send msg.match[0]
-    num = Number(msg.match[0])
-    if(testPrimality(num) == false)
+    for strNum in msg.match
+      num = Number(strNum)
+      if(testPrimality(num) == false)
+        continue
+
+      r = Math.random()
+      idx = Math.floor(r * 7)
+      m = num + " is prime number!"
+      if idx == 0
+        m = num + "は素数だよー"
+      else if idx == 1
+        m = num + "は素数だと思うよぉ"
+      else if idx == 2
+        m = "おねーちゃんは、"+num+"が素数だって分かんなかったんだよ"
+      else if idx == 3
+        m = num + "は好きな素数だなー"
+      else if idx == 4
+        m = "ししっ、みんなは"+num+"が素数って分かったぁ？"
+      else if idx == 5
+        m = num + "が素数だって分かんないんじゃ、音ノ木坂には受からないよ！"
+      else
+        m = "あっ、" + num + "って素数だよねー"
+
+      msg.send m
       return
-
-    r = Math.random()
-    idx = Math.floor(r * 7)
-    m = num + " is prime number!"
-    if idx == 0
-      m = num + "は素数だよー"
-    else if idx == 1
-      m = num + "は素数だと思うよぉ"
-    else if idx == 2
-      m = "おねーちゃんは、"+num+"が素数だって分かんなかったんだよ"
-    else if idx == 3
-      m = num + "は好きな素数だなー"
-    else if idx == 4
-      m = "ししっ、みんなは"+num+"が素数って分かったぁ？"
-    else if idx == 5
-      m = num + "が素数だって分かんないんじゃ、音ノ木坂には受からないよ！"
-    else
-      m = "あっ、" + num + "って素数だよねー"
-
-    msg.send m
 
   robot.hear /素数/i, (msg) ->
     r = Math.random()
