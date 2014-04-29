@@ -1,36 +1,53 @@
 # Description:
-#   A way to get information about lovelive.
+#   Yukiho tells us about lovelive.
 #
 # Commands:
 #   ダレカタスケテー - Replies "チョットマッテテー".
-#   hubot next lovelive - Getting next lovelive's broadcastsing date using Animemap API.
+#   hubot next lovelive - Getting next airdate of lovelive using Animemap API.
+#   (At 18:00 everyday) - Informs us if today is an air date of lovelive.
+
+cron = require('cron').CronJob
 
 module.exports = (robot) ->
   robot.hear /ダレカタスケテー/i, (msg) ->
     msg.send "チョットマッテテー"
 
   robot.respond /next lovelive/i, (msg) ->
-    animeMap msg, "ラブライブ", (item) ->
+    d = new Date
+    getNextLovelive robot, d, (item) ->
       if item?
-        d = new Date
-        if getDayStr(d) != item.week || getTimeStr(d) >= item.time
-          d.setTime(d.getTime() + (7 - d.getDay()) * 86400 * 1000)
-        msg.send "#{item.title}の第#{item.next}は#{d.getDate()}日（#{item.week}）、" +
-          "#{item.station}で#{item.time}に放送だよ!!"
+        msg.send "#{item.title}#{item.next}は#{item.date}の#{item.time}から#{item.station}で放送だよぉ♪"
       else
-        msg.send "なかったよ..."
+        msg.send "お姉ちゃん、見つからないよぉ..."
 
-getDayStr = (d) ->
-  week = [ "日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日", ]
-  week[d.getDay()]
+  new cron
+    cronTime: "0 0 18 * * *"
+    start: true
+    onTick: ->
+      d = new Date
+      getNextLovelive robot, d, (item) ->
+        console.log(item.date, getDateStr(d))
+        if item? && item.date == getDateStr(d)
+          send robot, "#{item.title}#{item.next}は今日の#{item.time}からだよっ。もう録画予約した？"
 
-getTimeStr = (d) ->
-  hours = ("0" + d.getHours().toString()).slice(-2)
-  minutes = ("0" + d.getMinutes().toString()).slice(-2)
-  "#{hours}:#{minutes}"
+send = (robot, text) ->
+  users = robot.brain.data.users
+  return if users.length == 0
+  room = users[Object.keys(users)[0]].room
+  robot.send {room:room}, text
 
-animeMap = (msg, query, cb) ->
-  msg.http('http://animemap.net/api/table/tokyo.json')
+getNextLovelive = (robot, d, cb) ->
+  animeMap robot, "ラブライブ", (item) ->
+    if item?
+      if getDayStr(d) != item.week || getTimeStr(d) >= item.time
+        d = new Date(d.getTime() + (7 - d.getDay()) * 86400 * 1000)
+      item.date = getDateStr(d)
+      cb item
+    else
+      cb undefined
+
+animeMap = (robot, query, cb) ->
+  robot.http('http://animemap.net/api/table/tokyo.json')
     .get() (err, res, body) ->
       res = JSON.parse(body)
       res = res.response?.item
@@ -40,3 +57,17 @@ animeMap = (msg, query, cb) ->
             cb item
             return
       cb undefined
+
+getDayStr = (d) ->
+  week = ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
+  week[d.getDay()]
+
+getDateStr = (d) ->
+  month = ("0" + (d.getMonth() + 1).toString()).slice(-2)
+  date = ("0" + d.getMonth().toString()).slice(-2)
+  "#{month}/#{date}"
+
+getTimeStr = (d) ->
+  hours = ("0" + d.getHours().toString()).slice(-2)
+  minutes = ("0" + d.getMinutes().toString()).slice(-2)
+  "#{hours}:#{minutes}"
