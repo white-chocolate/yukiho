@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+token=dummy_api_token
+name=dummy_name
+
+HUBOT_IDOBATA_API_TOKEN=$token HUBOT_NAME=$name bin/hubot -a idobata
