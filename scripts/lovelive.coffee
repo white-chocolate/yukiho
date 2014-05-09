@@ -35,13 +35,6 @@ module.exports = (robot) ->
         if item? && item.date == getDateStr(d) && message?
           message.send "#{item.title}#{item.next}は今日の#{item.time}からだよっ。もう録画予約した？"
 
-send = (robot, text) ->
-  # send to first room in data
-  users = robot.brain.data.users
-  return if users.length == 0
-  room = users[Object.keys(users)[0]].room
-  robot.send {room:room}, text
-
 getNextLovelive = (robot, d, cb) ->
   animeMap robot, "ラブライブ", (item) ->
     if item?
