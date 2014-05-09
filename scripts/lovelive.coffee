@@ -26,6 +26,7 @@ module.exports = (robot) ->
 
   new cron
     cronTime: "0 0 18 * * *"
+    timeZone: "Asia/Tokyo"
     start: true
     onTick: ->
       d = new Date
