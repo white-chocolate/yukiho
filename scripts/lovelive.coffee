@@ -4,11 +4,15 @@
 # Commands:
 #   ダレカタスケテー - Replies "チョットマッテテー".
 #   hubot next lovelive - Getting next airdate of lovelive using Animemap API.
-#   (At 18:00 everyday) - Informs us if today is an air date of lovelive.
+#   [At 18:00 everyday] - Informs us if today is an air date of lovelive.
 
 cron = require('cron').CronJob
+message = undefined
 
 module.exports = (robot) ->
+  robot.hear //, (msg) ->
+    message = msg
+
   robot.hear /ダレカタスケテー/i, (msg) ->
     msg.send "チョットマッテテー"
 
@@ -27,8 +31,8 @@ module.exports = (robot) ->
       d = new Date
       getNextLovelive robot, d, (item) ->
         # console.log(d, item)
-        if item? && item.date == getDateStr(d)
-          send robot, "#{item.title}#{item.next}は今日の#{item.time}からだよっ。もう録画予約した？"
+        if item? && item.date == getDateStr(d) && message?
+          message.send "#{item.title}#{item.next}は今日の#{item.time}からだよっ。もう録画予約した？"
 
 send = (robot, text) ->
   # send to first room in data
