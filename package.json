@@ -24,6 +24,7 @@
     "hubot": ">= 2.6.0 < 3.0.0",
     "hubot-idobata": "0.0.3",
     "hubot-scripts": ">= 2.5.0 < 3.0.0",
+    "hubot-reviewer-lotto": "",
     "cron": ">= 1.0.4",
     "time": ">= 0.10.0"
   },
