@@ -2,5 +2,13 @@
 
 token=dummy_api_token
 name=dummy_name
+github_token=dummy_token
+github_org=dummy_org_name
+github_team_id=dummy_team_id
 
-HUBOT_IDOBATA_API_TOKEN=$token HUBOT_NAME=$name bin/hubot -a idobata
+HUBOT_IDOBATA_API_TOKEN=$token \
+    HUBOT_NAME=$name \
+    HUBOT_GITHUB_TOKEN=$github_token \
+    HUBOT_GITHUB_ORG=$github_org \
+    HUBOT_GITHUB_REVIEWER_TEAM=$github_team_id \
+    bin/hubot -a idobata
