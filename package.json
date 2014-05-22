@@ -26,7 +26,8 @@
     "hubot-scripts": ">= 2.5.0 < 3.0.0",
     "cron": ">= 1.0.4",
     "time": ">= 0.10.0",
-    "yukiho-reviewer-lotto": "git://github.com/white-chocolate/yukiho-reviewer-lotto.git"
+    "yukiho-reviewer-lotto": "git://github.com/white-chocolate/yukiho-reviewer-lotto.git",
+    "hubot-cron": ">= 0.1.0"
   },
   "engines": {
     "node": ">= 0.8.x",
