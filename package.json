@@ -29,7 +29,10 @@
     "yukiho-reviewer-lotto": "git://github.com/white-chocolate/yukiho-reviewer-lotto.git",
     "hubot-cron": ">= 0.1.0",
     "ntwitter": "",
-    "underscore": ""
+    "underscore": "",
+    "htmlparser": "",
+    "soupselect": "",
+    "jsdom": ""
   },
   "engines": {
     "node": ">= 0.8.x",
