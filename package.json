@@ -27,7 +27,9 @@
     "cron": ">= 1.0.4",
     "time": ">= 0.10.0",
     "yukiho-reviewer-lotto": "git://github.com/white-chocolate/yukiho-reviewer-lotto.git",
-    "hubot-cron": ">= 0.1.0"
+    "hubot-cron": ">= 0.1.0",
+    "ntwitter": "",
+    "underscore": ""
   },
   "engines": {
     "node": ">= 0.8.x",

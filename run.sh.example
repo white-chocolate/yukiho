@@ -5,10 +5,18 @@ name=dummy_name
 github_token=dummy_token
 github_org=dummy_org_name
 github_team_id=dummy_team_id
+twitter_consumer_key=dummy_consumer_key
+twitter_consumer_secret=dummy_consumer_secret
+twitter_access_token=dummy_access_token
+twitter_access_token_secret=dummy_access_token_secret
 
 HUBOT_IDOBATA_API_TOKEN=$token \
     HUBOT_NAME=$name \
     HUBOT_GITHUB_TOKEN=$github_token \
     HUBOT_GITHUB_ORG=$github_org \
     HUBOT_GITHUB_REVIEWER_TEAM=$github_team_id \
+    HUBOT_TWITTER_CONSUMER_KEY=$twitter_consumer_key \
+    HUBOT_TWITTER_CONSUMER_SECRET=$twitter_consumer_secret \
+    HUBOT_TWITTER_ACCESS_TOKEN_KEY=$twitter_access_token \
+    HUBOT_TWITTER_ACCESS_TOKEN_SECRET=$twitter_access_token_secret \
     bin/hubot -a idobata
