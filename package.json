@@ -32,7 +32,9 @@
     "underscore": "",
     "htmlparser": "",
     "soupselect": "",
-    "jsdom": ""
+    "jsdom": "",
+    "githubot": ">= 0.4",
+    "date-utils": ""
   },
   "engines": {
     "node": ">= 0.8.x",
