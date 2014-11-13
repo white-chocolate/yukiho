@@ -34,7 +34,8 @@ module.exports = (robot) ->
       github.get "#{url_api_base}/repos/#{repo}/pulls/#{pr.number}/commits", (commits) ->
         pr_body = ""
         for commit in commits
-          console.log(commit)
+          console.log(commit.commit.message)
+          console.log(commit.commit.message.match(/Merge pull request/))
           unless commit.commit.message.match(/Merge pull request/)
             continue
           pr_body += "- [ ] #{commit.commit.message.replace(/\n\n/g, ' ').replace(/Merge pull request /, '')} by @#{commit.author.login}\n"
