@@ -1,6 +1,6 @@
 # Yukiho
 
-Yukiho is a hubot for White Chocolate.
+Yukiho is the hubot for White Chocolate.
 
 The model of this hubot is [Yukiho Kosaka](https://www.google.co.jp/search?q=%E9%AB%98%E5%9D%82%E9%9B%AA%E7%A9%82&es_sm=119&tbm=isch&tbo=u&source=univ&sa=X&biw=1440&bih=806), a character of LoveLive!.
 
