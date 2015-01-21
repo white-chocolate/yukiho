@@ -14,6 +14,6 @@ module.exports = (robot) ->
 
 randomSushiyukiUrl = () ->
   base = 'https://d1zd1v0cxnbx2w.cloudfront.net/images/sets/sushiyuki/'
-  num = Math.ceil(Math.random() * 40) # 1..40
+  num = Math.ceil(Math.random() * 80) # 1..80
   filename = if num < 10 then "0#{num}.png" else "#{num}.png"
   base + filename
